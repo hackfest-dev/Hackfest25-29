@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const AddProductPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     category: '',
-    cost: '',
-    qty: '',
+    price: '',
+    stock: '',
     description: '',
     manufacturerName: '',
     manufacturerId: '',
@@ -16,14 +15,15 @@ const AddProductPage = () => {
     serialNumber: '',
     productType: '',
   });
+
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -31,19 +31,14 @@ const AddProductPage = () => {
     setLoading(true);
     
     try {
-      // In a real app, this would be an API call to create the product
+      // Simulate API call
       console.log('Submitting product:', formData);
-      
-      // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Success! Redirect back to products page
       setLoading(false);
       navigate('/seller/products');
     } catch (error) {
       console.error('Error adding product:', error);
       setLoading(false);
-      // Handle error (show error message, etc)
     }
   };
 
@@ -65,7 +60,7 @@ const AddProductPage = () => {
               required
               value={formData.name}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -81,7 +76,7 @@ const AddProductPage = () => {
               required
               value={formData.manufacturerName}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -97,7 +92,7 @@ const AddProductPage = () => {
               required
               value={formData.manufacturerId}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -113,7 +108,7 @@ const AddProductPage = () => {
               required
               value={formData.manufacturerDate}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -129,7 +124,7 @@ const AddProductPage = () => {
               required
               value={formData.serialNumber}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -140,52 +135,68 @@ const AddProductPage = () => {
             </label>
             <input
               type="text"
-              id="category"
-              name="category"
+              id="productType"
+              name="productType"
               required
               value={formData.productType}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            />
+          </div>
+
+          {/* Category */}
+          <div>
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Category
+            </label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              required
+              value={formData.category}
+              onChange={handleChange}
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
           {/* Price */}
           <div>
-            <label htmlFor="cost" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Price
             </label>
-            <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span className="text-gray-500 dark:text-gray-400 sm:text-sm">$</span>
               </div>
               <input
                 type="number"
-                id="cost"
-                name="cost"
+                id="price"
+                name="price"
                 required
                 min="0.01"
                 step="0.01"
-                value={formData.cost}
+                value={formData.price}
                 onChange={handleChange}
-                className="block w-full pl-7 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="block w-full pl-7 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               />
             </div>
           </div>
 
-          {/* qty */}
+          {/* Stock */}
           <div>
-            <label htmlFor="qty" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              qty Quantity
+            <label htmlFor="stock" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Stock Quantity
             </label>
             <input
               type="number"
-              id="qty"
-              name="qty"
+              id="stock"
+              name="stock"
               required
               min="0"
-              value={formData.qty}
+              value={formData.stock}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -200,12 +211,12 @@ const AddProductPage = () => {
               rows={4}
               value={formData.description}
               onChange={handleChange}
-              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
         </div>
 
-        {/* Form Buttons */}
+        {/* Buttons */}
         <div className="flex justify-end mt-6 space-x-3">
           <button
             type="button"
