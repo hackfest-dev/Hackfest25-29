@@ -15,24 +15,7 @@ const Header = () => {
           >
             Dashboard
           </Link>
-          <Link
-            to="#"
-            className="hover:text-cyan-400 transition duration-300"
-          >
-            Products
-          </Link>
-          <Link
-            to="#"
-            className="hover:text-cyan-400 transition duration-300"
-          >
-            Sellers
-          </Link>
-          <Link
-            to="#"
-            className="hover:text-cyan-400 transition duration-300"
-          >
-            Warehouses
-          </Link>
+         
           <Link
             to="/notifications"
             className="hover:text-cyan-400 transition duration-300"
@@ -40,7 +23,7 @@ const Header = () => {
             Notifications
           </Link>
           <Link
-            to="#"
+            to="/"
             className="hover:text-cyan-400 transition duration-300"
           >
             Logout
